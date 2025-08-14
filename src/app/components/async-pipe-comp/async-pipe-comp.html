@@ -1,0 +1,9 @@
+<!-- Die asyn-Pipe (| async) uebernimmmt folgende aufgaben:
+1. Observable abonnieren
+2. Wert in einer lokalen Variable speichern
+3. Abonnement beenden
+Resultat: Der Code ist kuerzer, sauberer und weniger Fehleranfällig -->
+
+@for (user of observableService.users$ | async; track user.id) {
+  <li>{{ user.name }}</li>
+}
