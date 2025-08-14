@@ -3,11 +3,11 @@ import { RxJSService } from '../../services/rxjs-service';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-async-pipe-comp',
+  selector: 'app-map-comp',
   imports: [AsyncPipe],
-  templateUrl: './async-pipe-comp.html',
-  styleUrl: './async-pipe-comp.scss',
+  templateUrl: './map-comp.html',
+  styleUrl: './map-comp.scss',
 })
-export class AsyncPipeComp {
+export class MapComp {
   rxJSService = inject(RxJSService);
 }

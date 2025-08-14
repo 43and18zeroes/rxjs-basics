@@ -1,0 +1,4 @@
+<h2>Basic map</h2>
+@for (username of rxJSService.usernames$ | async; track username) {
+  <li>{{ username }}</li>
+}
