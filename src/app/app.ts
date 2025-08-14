@@ -9,4 +9,10 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('rxjs-basics');
+
+  users = [
+    { id: '1', name: 'John', isActive: true },
+    { id: '2', name: 'Jack', isActive: true },
+    { id: '3', name: 'Mike', isActive: true },
+  ]
 }
