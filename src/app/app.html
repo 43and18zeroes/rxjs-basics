@@ -1,3 +1,8 @@
+<!-- Die asyn-Pip (| async) uebernimmmt folgende aufgaben:
+1. Observable abonnieren
+2. Wert in einer lokalen Variable speichern
+3. Abonnement beenden
+Resultat: Der Code ist kuerzer, sauberer und weniger Fehleranfällig -->
 <div *ngFor="let user of users$ | async">
   {{ user.name }}
 </div>
