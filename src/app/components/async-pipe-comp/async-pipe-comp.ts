@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ObseravableService } from '../../services/obseravable-service';
+import { ObseravableService } from '../../services/rxjs-service';
 import { AsyncPipe } from '@angular/common';
 
 @Component({

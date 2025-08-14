@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ObseravableService } from './obseravable-service';
+import { ObseravableService } from './rxjs-service';
 
 describe('ObseravableService', () => {
   let service: ObseravableService;
