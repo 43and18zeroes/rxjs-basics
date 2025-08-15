@@ -1,0 +1,4 @@
+<h2>Basic filter</h2>
+@for (user of rxjsService.filteredUsers$ | async; track user.id) {
+  <li>{{ user.name }}</li>
+}
