@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { filter, map, of } from 'rxjs';
+import { BehaviorSubject, filter, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -60,4 +60,6 @@ Erklärung zu `usernames$`:
   filteredUsers$ = this.users$.pipe(
     filter((users) => users.every((user) => user.isActive))
   );
+
+  user$ = new BehaviorSubject<{ id: string; name: string } | null>(null);
 }
