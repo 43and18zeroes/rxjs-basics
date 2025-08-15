@@ -9,5 +9,5 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './async-pipe-comp.scss',
 })
 export class AsyncPipeComp {
-  rxJSService = inject(RxJSService);
+  rxjsService = inject(RxJSService);
 }

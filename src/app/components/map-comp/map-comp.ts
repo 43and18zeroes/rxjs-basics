@@ -9,5 +9,5 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './map-comp.scss',
 })
 export class MapComp {
-  rxJSService = inject(RxJSService);
+  rxjsService = inject(RxJSService);
 }
