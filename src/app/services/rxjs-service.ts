@@ -61,5 +61,10 @@ Erklärung zu `usernames$`:
     filter((users) => users.every((user) => user.isActive))
   );
 
+  // Erstellt ein BehaviorSubject, das den aktuellen Benutzerzustand hält.
+  // - Typ: entweder ein Objekt mit { id: string, name: string } oder null
+  // - Startwert ist null (kein Benutzer gesetzt)
+  // - Jeder neue Subscriber erhält sofort den zuletzt gesetzten Wert
+  // - Neue Werte können mit .next(...) an alle Abonnenten gesendet werden
   user$ = new BehaviorSubject<{ id: string; name: string } | null>(null);
 }
