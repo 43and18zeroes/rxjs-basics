@@ -4,8 +4,11 @@ import {
   combineLatest,
   filter,
   fromEvent,
+  interval,
   map,
+  Observable,
   of,
+  share,
 } from 'rxjs';
 
 @Injectable({
@@ -143,3 +146,51 @@ Erklärung zu `usernames$`:
     }))
   );
 }
+
+// Cold Observable
+// → Startet für jeden neuen Subscriber von vorne.
+// → Die Datenquelle beginnt erst zu “produzieren”, wenn jemand subscribed.
+// → Jeder Subscriber bekommt seine eigene, unabhängige Datenreihe.
+// Subscriber A bekommt Werte ab 1 (1, 2, 3, …) sofort nach Subscription.
+// Subscriber B subscribed 3 Sekunden später und startet auch wieder bei 1.
+// Beide haben ihre eigene Zählung → Datenquelle startet für jeden neu.
+const cold$ = new Observable<number>(observer => {
+  console.log('Starte Cold Observable...');
+  let counter = 0;
+  const intervalId = setInterval(() => {
+    counter++;
+    observer.next(counter);
+  }, 1000);
+
+  return () => clearInterval(intervalId);
+});
+
+// Zwei Subscriber zu unterschiedlichen Zeitpunkten
+cold$.subscribe(val => console.log('Subscriber A:', val));
+
+setTimeout(() => {
+  cold$.subscribe(val => console.log('Subscriber B:', val));
+}, 3000);
+
+
+// Hot Observable
+// → Läuft unabhängig davon, ob jemand subscribed.
+// → Neue Subscriber steigen in den laufenden Stream ein und bekommen nur noch das, was ab ihrem Subscribe-Moment passiert.
+// → Mehrere Subscriber teilen sich denselben Datenstrom.
+// Subscriber A sieht Werte: 0, 1, 2, 3, …
+// Subscriber B steigt erst bei dem Wert ein, der gerade gesendet wird, z. B. 3, 4, 5, …
+// Kein Zurückspulen – beide hören denselben laufenden Stream.
+// Hot Observable: interval ist schon "laufend" und share() teilt den Stream
+const hot$ = interval(1000).pipe(
+  share() // macht das Observable hot und teilt es unter allen Subscribern
+);
+
+hot$.subscribe(val => console.log('Subscriber A:', val));
+
+setTimeout(() => {
+  hot$.subscribe(val => console.log('Subscriber B:', val));
+}, 3000);
+
+// Cold Observable = Jedes Mal, wenn jemand einen Filmstream startet, bekommst du deine eigene Kopie und beginnst von Anfang an.
+
+// Hot Observable = Du schaltest live ins Fernsehen ein – wenn du später einschaltest, verpasst du, was vorher lief.
