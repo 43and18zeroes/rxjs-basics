@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, filter, fromEvent, map, of } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  filter,
+  fromEvent,
+  map,
+  of,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -85,8 +92,47 @@ Erklärung zu `usernames$`:
    */
   documentClick$ = fromEvent(document, 'click');
 
+  /*
+  * `combineLatest` ist ein RxJS-Operator, der die Werte mehrerer Observables zu einem einzigen Array kombiniert.
+  * Hier werden `this.users$`, `this.usernames$` und `this.filteredUsers$` als Quellen verwendet.
+  *
+  * - **Wann sendet es einen Wert?**
+  * `combineLatest` gibt erst dann einen Wert aus, wenn jedes der drei Quell-Observables mindestens einmal einen Wert
+  * emittiert hat. Danach sendet es jedes Mal einen neuen Wert, wenn eines der Quell-Observables einen neuen Wert emittiert.
+  *
+  * - **Was ist der Wert?**
+  * Der Operator `combineLatest` erzeugt ein Array `[users, usernames, filteredUsers]` mit dem jeweils **neuesten Wert** von
+  * jedem der drei Quell-Observables.
+  *
+  * - **Was macht der `map`-Operator?**
+  * Der `map`-Operator nimmt dieses Array und transformiert es in ein Objekt.
+  * Anstatt `[users: ..., usernames: ..., filteredUsers: ...]` wird ein einfach zugängliches Objekt
+  * `{ users, usernames, filteredUsers }` erstellt, bei dem die Schlüssel den Variablennamen entsprechen
+  * (dies ist eine Kurzschreibweise für `{ users: users, usernames: usernames, filteredUsers: filteredUsers }`).
+  *
+  * **Zusammenfassend:** `data$` ist ein Observable, das immer dann einen neuen Wert emittiert, wenn sich einer der drei
+  * Quell-Observables (`users$`, `usernames$`, `filteredUsers$`) ändert. Jeder neue Wert ist ein einzelnes Objekt, das
+  * die jeweils neuesten Daten von allen drei Quellen enthält.
+  * {
+  "users": [
+    { "id": "1", "name": "John", "isActive": true },
+    { "id": "2", "name": "Jack", "isActive": true },
+    { "id": "3", "name": "Mike", "isActive": true }
+  ],
+  "usernames": [
+    "John",
+    "Jack",
+    "Mike"
+  ],
+  "filteredUsers": [
+    { "id": "1", "name": "John", "isActive": true },
+    { "id": "2", "name": "Jack", "isActive": true },
+    { "id": "3", "name": "Mike", "isActive": true }
+    ]
+  }
+  */
   data$ = combineLatest([
-    this.user$,
+    this.users$,
     this.usernames$,
     this.filteredUsers$,
   ]).pipe(

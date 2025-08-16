@@ -6,10 +6,11 @@ import { MapComp } from "./components/map-comp/map-comp";
 import { FilterComp } from "./components/filter-comp/filter-comp";
 import { BehaviourSubjectComp } from "./components/behaviour-subject-comp/behaviour-subject-comp";
 import { FromEventComp } from "./components/from-event-comp/from-event-comp";
+import { CombineLatestComp } from "./components/combine-latest-comp/combine-latest-comp";
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, AsyncPipeComp, MapComp, FilterComp, BehaviourSubjectComp, FromEventComp],
+  imports: [CommonModule, AsyncPipeComp, MapComp, FilterComp, BehaviourSubjectComp, FromEventComp, CombineLatestComp],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

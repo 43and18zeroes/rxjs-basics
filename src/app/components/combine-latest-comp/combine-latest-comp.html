@@ -1,0 +1,12 @@
+<h2> Basic combineLatest</h2>
+@if (rxjsService.data$ | async; as data) {
+<div>
+  @for (user of data.users; track user.id) {
+  <li>{{ user.name }}</li>
+  } --- @for (username of data.usernames; track username) {
+  <li>{{ username }}</li>
+  } --- @for (user of data.filteredUsers; track user.id) {
+  <li>{{ user.name }}</li>
+  }
+</div>
+}
