@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, filter, map, of } from 'rxjs';
+import { BehaviorSubject, filter, fromEvent, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +23,8 @@ export class RxJSService {
 
   /*
 Erklärung zu `usernames$`:
+
+- pipe(...) verbindet mehrere RxJS-Operatoren in Reihenfolge.
 
 - `users$` ist ein Observable, erzeugt mit `of(this.users)`. 
   Es emittiert einmalig (synchron) ein Array von User-Objekten:
@@ -67,4 +69,14 @@ Erklärung zu `usernames$`:
   // - Jeder neue Subscriber erhält sofort den zuletzt gesetzten Wert
   // - Neue Werte können mit .next(...) an alle Abonnenten gesendet werden
   user$ = new BehaviorSubject<{ id: string; name: string } | null>(null);
+
+  /**
+   * `documentClick$` ist ein Observable, das Klicks auf das gesamte HTML-Dokument überwacht.
+   * Es verwendet den RxJS-Operator `fromEvent`, um native DOM-Ereignisse in einen reaktiven
+   * Datenstrom umzuwandeln. Jeder Klick auf die Seite führt dazu, dass das Observable
+   * ein neues Klick-Ereignis emittiert. Dies ermöglicht eine flexible und robuste Verarbeitung
+   * von Benutzerinteraktionen, indem man den Datenstrom mit anderen RxJS-Operatoren
+   * filtern, transformieren oder zusammenführen kann.
+   */
+  documentClick$ = fromEvent(document, 'click');
 }
