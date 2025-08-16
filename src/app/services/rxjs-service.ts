@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, filter, fromEvent, map, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, fromEvent, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
+
+// Stellen Sie sich das reaktive Paradigma wie eine Fabrik vor.
+
+// Die Observables sind die Fließbänder, auf denen die Rohmaterialien (die Daten) transportiert werden.
+
+// Die Operatoren sind die Maschinen entlang des Fließbandes. Eine Maschine (z. B. der map-Operator) könnte ein Rohmaterial (ein Objekt) in ein fertiges Produkt (einen Namen) umwandeln. Eine andere Maschine (der filter-Operator) könnte fehlerhafte Produkte aussortieren.
+
+// Die Observer sind die Arbeiter am Ende des Fließbandes, die darauf warten, das fertige Produkt in Empfang zu nehmen, sobald es ankommt.
 export class RxJSService {
   users = [
     { id: '1', name: 'John', isActive: true },
@@ -18,7 +26,6 @@ export class RxJSService {
   //   { id: '2', name: 'Jack', isActive: true },
   //   { id: '3', name: 'Mike', isActive: true }
   // ]
-
   users$ = of(this.users);
 
   /*
@@ -43,7 +50,6 @@ Erklärung zu `usernames$`:
 
 [ "John", "Jack", "Mike" ]
 */
-
   usernames$ = this.users$.pipe(map((users) => users.map((user) => user.name)));
 
   // pipe(...) verbindet mehrere RxJS-Operatoren in Reihenfolge.
@@ -58,7 +64,6 @@ Erklärung zu `usernames$`:
   //   { id: '3', name: 'Mike', isActive: true }
   // ]
   // (nur, weil ALLE isActive = true sind; sonst keine Ausgabe)
-
   filteredUsers$ = this.users$.pipe(
     filter((users) => users.every((user) => user.isActive))
   );
@@ -79,4 +84,16 @@ Erklärung zu `usernames$`:
    * filtern, transformieren oder zusammenführen kann.
    */
   documentClick$ = fromEvent(document, 'click');
+
+  data$ = combineLatest([
+    this.user$,
+    this.usernames$,
+    this.filteredUsers$,
+  ]).pipe(
+    map(([users, usernames, filteredUsers]) => ({
+      users,
+      usernames,
+      filteredUsers,
+    }))
+  );
 }
