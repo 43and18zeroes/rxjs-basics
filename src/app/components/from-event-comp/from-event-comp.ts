@@ -10,7 +10,7 @@ import { RxJSService } from '../../services/rxjs-service';
 export class FromEventComp {
   rxjsService = inject(RxJSService);
 
-  ngOnInit() {
+  ngOnInit(): void {
     /**
      * Das `subscribe`-Statement abonniert das Observable `documentClick$`.
      *
