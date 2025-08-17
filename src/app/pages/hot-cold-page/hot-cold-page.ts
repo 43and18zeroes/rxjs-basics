@@ -11,6 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class HotColdPage {
   rxjsService = inject(RxJSService);
   private destroy$ = new Subject<void>();
+  private timeoutIds: number[] = [];
 
   ngOnInit(): void {
     this.subscribeToCold();
@@ -22,11 +23,12 @@ export class HotColdPage {
       .pipe(takeUntil(this.destroy$))
       .subscribe((val) => console.log('Subscriber A:', val));
 
-    setTimeout(() => {
+    const id = window.setTimeout(() => {
       this.rxjsService.cold$
         .pipe(takeUntil(this.destroy$))
         .subscribe((val) => console.log('Subscriber B:', val));
     }, 3000);
+    this.timeoutIds.push(id);
   }
 
   subscribeToHot() {
@@ -34,14 +36,17 @@ export class HotColdPage {
       .pipe(takeUntil(this.destroy$))
       .subscribe((val) => console.log('Subscriber A:', val));
 
-    setTimeout(() => {
+    const id = window.setTimeout(() => {
       this.rxjsService.hot$
         .pipe(takeUntil(this.destroy$))
         .subscribe((val) => console.log('Subscriber B:', val));
     }, 3000);
+    this.timeoutIds.push(id);
   }
 
   ngOnDestroy(): void {
+    this.timeoutIds.forEach((id) => clearTimeout(id));
+    this.timeoutIds = [];
     this.destroy$.next();
     this.destroy$.complete();
   }
