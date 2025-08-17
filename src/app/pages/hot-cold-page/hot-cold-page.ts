@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RxJSService } from '../../services/rxjs-service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-hot-cold-page',
@@ -9,6 +10,7 @@ import { RxJSService } from '../../services/rxjs-service';
 })
 export class HotColdPage {
   rxjsService = inject(RxJSService);
+  private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
     this.subscribeToCold();
@@ -16,25 +18,31 @@ export class HotColdPage {
   }
 
   subscribeToCold() {
-    // Zwei Subscriber zu unterschiedlichen Zeitpunkten
-    this.rxjsService.cold$.subscribe((val) =>
-      console.log('Subscriber A:', val)
-    );
+    this.rxjsService.cold$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((val) => console.log('Subscriber A:', val));
 
     setTimeout(() => {
-      this.rxjsService.cold$.subscribe((val) =>
-        console.log('Subscriber B:', val)
-      );
+      this.rxjsService.cold$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((val) => console.log('Subscriber B:', val));
     }, 3000);
   }
 
   subscribeToHot() {
-    this.rxjsService.hot$.subscribe((val) => console.log('Subscriber A:', val));
+    this.rxjsService.hot$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((val) => console.log('Subscriber A:', val));
 
     setTimeout(() => {
-      this.rxjsService.hot$.subscribe((val) =>
-        console.log('Subscriber B:', val)
-      );
+      this.rxjsService.hot$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((val) => console.log('Subscriber B:', val));
     }, 3000);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
