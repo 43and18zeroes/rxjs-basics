@@ -21,6 +21,7 @@
     [style.margin-left]="contentMarginLeft()"
     (touchend)="collapseSidenav()"
   >
+  <h1>{{ title() }}</h1>
     <router-outlet />
   </mat-sidenav-content>
 </mat-sidenav-container>

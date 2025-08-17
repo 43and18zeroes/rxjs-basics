@@ -27,7 +27,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('RxJS');
+  protected readonly title = signal('RxJS Basics');
   themeService = inject(ThemeService);
   collapsed = signal(true);
   isDesktop = signal(true);
