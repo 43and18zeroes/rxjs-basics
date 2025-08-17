@@ -1,0 +1,10 @@
+<h1>Basic BehaviourSubject</h1>
+<!--
+- Abonniert das Observable user$ mit dem async-Pipe und entpackt den aktuellen Wert.
+- Speichert diesen Wert in der Template-Variablen 'user'.
+- Rendert den Block nur, wenn 'user' truthy ist (nicht null/undefined).
+- Innerhalb des Blocks kann direkt auf 'user' zugegriffen werden, z. B. {{ user.name }}.
+-->
+@if (rxjsService.user$ | async; as user) {
+<div>{{ user.name }}</div>
+}

@@ -1,27 +1,9 @@
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  filter,
-  fromEvent,
-  interval,
-  map,
-  Observable,
-  of,
-  share,
-} from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, fromEvent, interval, map, Observable, of, share } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-
-// Stellen Sie sich das reaktive Paradigma wie eine Fabrik vor.
-
-// Die Observables sind die Fließbänder, auf denen die Rohmaterialien (die Daten) transportiert werden.
-
-// Die Operatoren sind die Maschinen entlang des Fließbandes. Eine Maschine (z. B. der map-Operator) könnte ein Rohmaterial (ein Objekt) in ein fertiges Produkt (einen Namen) umwandeln. Eine andere Maschine (der filter-Operator) könnte fehlerhafte Produkte aussortieren.
-
-// Die Observer sind die Arbeiter am Ende des Fließbandes, die darauf warten, das fertige Produkt in Empfang zu nehmen, sobald es ankommt.
 export class RxJSService {
   users = [
     { id: '1', name: 'John', isActive: true },

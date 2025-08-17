@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RxjsService } from './rxjs-service';
+import { DeviceService } from './device-service';
 
-describe('RxjsService', () => {
-  let service: RxjsService;
+describe('DeviceService', () => {
+  let service: DeviceService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RxjsService);
+    service = TestBed.inject(DeviceService);
   });
 
   it('should be created', () => {

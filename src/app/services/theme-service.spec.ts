@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RxjsService } from './rxjs-service';
+import { ThemeService } from './theme-service';
 
-describe('RxjsService', () => {
-  let service: RxjsService;
+describe('ThemeService', () => {
+  let service: ThemeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RxjsService);
+    service = TestBed.inject(ThemeService);
   });
 
   it('should be created', () => {

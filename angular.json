@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "rxjs-basics": {
+    "crud": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -61,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "rxjs-basics:build:production"
+              "buildTarget": "crud:build:production"
             },
             "development": {
-              "buildTarget": "rxjs-basics:build:development"
+              "buildTarget": "crud:build:development"
             }
           },
           "defaultConfiguration": "development"

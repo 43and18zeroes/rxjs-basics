@@ -1,0 +1,9 @@
+<h1>Basic AsyncPipe</h1>
+<!-- Die AsyncPipe (| async) uebernimmmt folgende Aufgaben:
+1. Observable abonnieren
+2. Wert in einer lokalen Variable speichern
+3. Abonnement beenden
+Resultat: Der Code ist kuerzer, sauberer und weniger Fehleranfällig -->
+@for (user of rxjsService.users$ | async; track user.id) {
+  <li>{{ user.name }}</li>
+}
